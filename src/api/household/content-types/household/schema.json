@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "households",
+  "info": {
+    "singularName": "household",
+    "pluralName": "households",
+    "displayName": "Household",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "house_hold_name": {
+      "type": "string"
+    },
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
