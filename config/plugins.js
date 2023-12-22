@@ -9,8 +9,4 @@ module.exports = {
         shopName: process.env.HOST_NAME, // The environment variable containing your myshopify.com domain
       },
     },
-    'attendance-plugin': {
-      enabled: true,
-      resolve: '../node_modules/strapi-plugin-attendance/',
-    }
   };
