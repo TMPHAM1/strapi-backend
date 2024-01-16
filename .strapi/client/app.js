@@ -5,8 +5,6 @@
 import strapiCloud from "@strapi/plugin-cloud/strapi-admin";
 import i18N from "@strapi/plugin-i18n/strapi-admin";
 import usersPermissions from "@strapi/plugin-users-permissions/strapi-admin";
-import shopify from "strapi-plugin-shopify/strapi-admin";
-import shopifyFields from "strapi-plugin-shopify-fields/strapi-admin";
 import strapiStripe from "strapi-stripe/strapi-admin";
 import { renderAdmin } from "@strapi/strapi/admin";
 
@@ -15,8 +13,6 @@ renderAdmin(document.getElementById("strapi"), {
     "strapi-cloud": strapiCloud,
     i18n: i18N,
     "users-permissions": usersPermissions,
-    shopify: shopify,
-    "shopify-fields": shopifyFields,
     "strapi-stripe": strapiStripe,
   },
 });
