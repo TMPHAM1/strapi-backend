@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * household service
+ * teacher service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::household.household');
+module.exports = createCoreService('api::teacher.teacher');

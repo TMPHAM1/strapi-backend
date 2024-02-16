@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * household controller
+ * teacher controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::household.household');
+module.exports = createCoreController('api::teacher.teacher');
