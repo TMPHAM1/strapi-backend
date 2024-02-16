@@ -1,4 +1,5 @@
 module.exports = [
+
   'strapi::errors',
   {
     name: 'strapi::security',
@@ -12,7 +13,14 @@ module.exports = [
       frameguard: false,
     },
   },
-  'strapi::cors',
+  {
+    name: 'strapi::cors',
+    config: {
+      enabled: true,
+      headers: '*',
+      origin: ['http://localhost:8000', 'https://summercamp.tienmpham.com']
+    }
+  },
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',
