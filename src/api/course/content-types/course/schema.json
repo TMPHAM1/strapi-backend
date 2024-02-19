@@ -36,6 +36,18 @@
       "relation": "manyToOne",
       "target": "api::teacher.teacher",
       "inversedBy": "courses"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "courses"
+    },
+    "attendances": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::attendance-record.attendance-record",
+      "mappedBy": "course"
     }
   }
 }

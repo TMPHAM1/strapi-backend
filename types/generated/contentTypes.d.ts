@@ -362,119 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiCourseCourse extends Schema.CollectionType {
-  collectionName: 'courses';
-  info: {
-    singularName: 'course';
-    pluralName: 'courses';
-    displayName: 'Course';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    seats_available: Attribute.Integer;
-    location: Attribute.String;
-    description: Attribute.Text;
-    start_date: Attribute.Date & Attribute.Required;
-    end_date: Attribute.Date;
-    teacher: Attribute.Relation<
-      'api::course.course',
-      'manyToOne',
-      'api::teacher.teacher'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::course.course',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::course.course',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiHouseholdHousehold extends Schema.CollectionType {
-  collectionName: 'households';
-  info: {
-    singularName: 'household';
-    pluralName: 'households';
-    displayName: 'Household';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    house_hold_name: Attribute.String;
-    users_permissions_users: Attribute.Relation<
-      'api::household.household',
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::household.household',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::household.household',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTeacherTeacher extends Schema.CollectionType {
-  collectionName: 'teachers';
-  info: {
-    singularName: 'teacher';
-    pluralName: 'teachers';
-    displayName: 'Teacher';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    email: Attribute.Email;
-    courses: Attribute.Relation<
-      'api::teacher.teacher',
-      'oneToMany',
-      'api::course.course'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::teacher.teacher',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::teacher.teacher',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -775,6 +662,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     first_name: Attribute.String;
     last_name: Attribute.String;
     avatar_url: Attribute.String;
+    courses: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::course.course'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -934,6 +826,165 @@ export interface PluginStrapiStripeSsPayment extends Schema.CollectionType {
   };
 }
 
+export interface ApiAttendanceRecordAttendanceRecord
+  extends Schema.CollectionType {
+  collectionName: 'attendance_records';
+  info: {
+    singularName: 'attendance-record';
+    pluralName: 'attendance-records';
+    displayName: 'Attendance';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    course: Attribute.Relation<
+      'api::attendance-record.attendance-record',
+      'manyToOne',
+      'api::course.course'
+    >;
+    week: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::attendance-record.attendance-record',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::attendance-record.attendance-record',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCourseCourse extends Schema.CollectionType {
+  collectionName: 'courses';
+  info: {
+    singularName: 'course';
+    pluralName: 'courses';
+    displayName: 'Course';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    seats_available: Attribute.Integer;
+    location: Attribute.String;
+    description: Attribute.Text;
+    start_date: Attribute.Date & Attribute.Required;
+    end_date: Attribute.Date;
+    teacher: Attribute.Relation<
+      'api::course.course',
+      'manyToOne',
+      'api::teacher.teacher'
+    >;
+    user: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    attendances: Attribute.Relation<
+      'api::course.course',
+      'oneToMany',
+      'api::attendance-record.attendance-record'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHouseholdHousehold extends Schema.CollectionType {
+  collectionName: 'households';
+  info: {
+    singularName: 'household';
+    pluralName: 'households';
+    displayName: 'Household';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    house_hold_name: Attribute.String;
+    users_permissions_users: Attribute.Relation<
+      'api::household.household',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::household.household',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::household.household',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTeacherTeacher extends Schema.CollectionType {
+  collectionName: 'teachers';
+  info: {
+    singularName: 'teacher';
+    pluralName: 'teachers';
+    displayName: 'Teacher';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    email: Attribute.Email;
+    courses: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToMany',
+      'api::course.course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -944,9 +995,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::course.course': ApiCourseCourse;
-      'api::household.household': ApiHouseholdHousehold;
-      'api::teacher.teacher': ApiTeacherTeacher;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;
@@ -955,6 +1003,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::strapi-stripe.ss-product': PluginStrapiStripeSsProduct;
       'plugin::strapi-stripe.ss-payment': PluginStrapiStripeSsPayment;
+      'api::attendance-record.attendance-record': ApiAttendanceRecordAttendanceRecord;
+      'api::course.course': ApiCourseCourse;
+      'api::household.household': ApiHouseholdHousehold;
+      'api::teacher.teacher': ApiTeacherTeacher;
     }
   }
 }

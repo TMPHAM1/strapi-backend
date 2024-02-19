@@ -18,7 +18,7 @@ module.exports = [
     config: {
       enabled: true,
       headers: '*',
-      origin: ['http://localhost:8000', 'https://summercamp.tienmpham.com']
+      origin: ['https://api.tienmpham.com','http://localhost:8000', 'https://summercamp.tienmpham.com']
     }
   },
   'strapi::poweredBy',
